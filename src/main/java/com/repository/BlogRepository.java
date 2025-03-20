@@ -7,5 +7,4 @@ import com.entity.Blog;
 
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
-
 }

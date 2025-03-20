@@ -4,54 +4,45 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class CommentDto {
-	 private Long id;
+    private Long id;
+    private Long blogId;
+    
+    @NotBlank
+    @Size(min = 3, max = 200)
+    private String comment;
 
-	    @NotBlank
-	    @Size(min = 3, max = 100)
-	    private String title;
+    // Constructor
+    public CommentDto(Long id, String comment, Long blogId) {
+        this.id = id;
+        this.comment = comment;
+        this.blogId = blogId;
+    }
 
-	    @NotBlank
-	    @Size(min = 3, max = 200)
-	    
-	    private String comment;
+    // Default constructor
+    public CommentDto() {}
 
-		public Long getId() {
-			return id;
-		}
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-		public String getTitle() {
-			return title;
-		}
+    public String getComment() {
+        return comment;
+    }
 
-		public void setTitle(String title) {
-			this.title = title;
-		}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-		public String getComment() {
-			return comment;
-		}
+    public Long getBlogId() {
+        return blogId;
+    }
 
-		public void setComment(String content) {
-			this.comment = content;
-		}
-
-		public CommentDto(Long id,@NotBlank @Size(min = 3, max = 100) String title,@NotBlank @Size(min = 3, max = 200) String content) {
-			super();
-			this.id = id;
-			this.title = title;
-			this.comment = content;
-		}
-
-		public CommentDto() {
-			super();
-		}
-
-		@Override
-		public String toString() {
-			return "CommentDto [id=" + id + ", title=" + title + ", content=" + comment + "]";
-		}
+    public void setBlogId(Long blogId) {
+        this.blogId = blogId;
+    }
 }
