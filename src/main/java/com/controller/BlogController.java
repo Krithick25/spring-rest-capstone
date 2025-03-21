@@ -1,9 +1,10 @@
 package com.controller;
 
-import java.util.*;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.dto.BlogDto;
 import com.service.BlogService;
 
@@ -20,12 +21,6 @@ public class BlogController {
     public ResponseEntity<BlogDto> createBlog(@RequestBody BlogDto blogDto) {
         return ResponseEntity.status(201).body(blogService.createBlog(blogDto));
     }
-    
-    @GetMapping
-    public ResponseEntity<List<BlogDto>> getAllBlogs() {
-        return ResponseEntity.ok(blogService.getAllBlogs());
-    }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<BlogDto> getBlogById(@PathVariable Long id) {
@@ -39,7 +34,11 @@ public class BlogController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteBlog(@PathVariable Long id) {
-        blogService.deleteBlog(id);
-        return ResponseEntity.ok("Blog deleted successfully");
+        return ResponseEntity.ok(blogService.deleteBlog(id));
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<BlogDto>> getAllBlogs() {
+        return ResponseEntity.ok(blogService.getAllBlogs());
     }
 }

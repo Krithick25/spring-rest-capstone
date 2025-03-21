@@ -1,5 +1,8 @@
 package com.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,9 +20,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCommentNotFoundException(CommentNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
-
+    
     @ExceptionHandler(NegativeNumberException.class)
-    public ResponseEntity<String> handleNegativeNumberException(NegativeNumberException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, String>> handleNegativeNumberException(NegativeNumberException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Negative Value");
+        error.put("message", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

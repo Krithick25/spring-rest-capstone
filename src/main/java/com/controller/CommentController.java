@@ -1,16 +1,17 @@
 package com.controller;
 
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.dto.CommentDto;
 import com.service.CommentService;
 
 @RestController
-@RequestMapping("/api/blogs/comment") 
+@RequestMapping("/api/blogs/comment")
 public class CommentController {
     private final CommentService commentService;
-	private Long blogId;
 
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
@@ -18,7 +19,7 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentDto> postComment(@RequestBody CommentDto commentDto) {
-        return ResponseEntity.ok(commentService.postComment(commentDto)); 
+        return ResponseEntity.ok(commentService.postComment(commentDto));
     }
     
     @GetMapping
@@ -37,8 +38,8 @@ public class CommentController {
     }
     
     @DeleteMapping("/{blogId}")
-    public ResponseEntity<String> deleteCommentsByBlogId(@PathVariable Long boldId) {
-        commentService.deleteCommentsByBlogId(blogId); 
-        return ResponseEntity.ok("All comments for blog ID " + blogId + "have been deleted.");
+    public ResponseEntity<String> deleteCommentsByBlogId(@PathVariable Long blogId) {
+        commentService.deleteCommentsByBlogId(blogId);
+        return ResponseEntity.ok("All comments for blog ID " + blogId + " have been deleted.");
     }
 }

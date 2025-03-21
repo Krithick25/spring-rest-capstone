@@ -1,13 +1,19 @@
 package com.repository;
 
-import com.entity.Comment;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByBlogId(Long blogId);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
-	void deleteByBlogId(Long blogId);
+import com.entity.Comment;
+
+import jakarta.transaction.Transactional;
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+	List<Comment> findByBlogId(Long blogId);
+	@Transactional
+    @Modifying
+    @Query("DELETE FROM Comment c WHERE c.blog.id = :blogId")
+    void deleteByBlogId(Long blogId);
 }

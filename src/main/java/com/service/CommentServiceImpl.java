@@ -9,6 +9,7 @@ import com.dto.CommentDto;
 import com.entity.Blog;
 import com.entity.Comment;
 import com.exception.BlogNotFoundException;
+import com.exception.CommentNotFoundException;
 import com.exception.NegativeNumberException;
 import com.repository.BlogRepository;
 import com.repository.CommentRepository;
@@ -32,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
         }
         Blog blog = blogRepository.findById(commentDto.getBlogId())
                 .orElseThrow(() -> new BlogNotFoundException("Blog not found with id: " + commentDto.getBlogId()));
+        System.out.println(blog);
         Comment comment = new Comment();
         comment.setBlog(blog);
         comment.setComment(commentDto.getComment());
@@ -81,7 +83,7 @@ public class CommentServiceImpl implements CommentService {
 
         List<Comment> comments = blog.getComments();
         if (comments.isEmpty()) {
-            throw new NegativeNumberException("No comments found for blog with id: " + blogId);
+            throw new CommentNotFoundException("No comments found for blog with id: " + blogId);
         }
 
         // Get the latest comment
